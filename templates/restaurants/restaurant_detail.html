@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+{% load static %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'styles/restaurants.css' %}" />
+{% endblock %}
+
+{% block content %}
+<main>
+  <h1>
+    {{ object.name }}
+  </h1>
+  <P>
+    {{ object.cuisine }} | {{ object.address }}
+  </P>
+  <p>
+    {{ object.description }}
+  </p>
+  {% if object.website %}
+  <p><a href="{{ object.website }}">사이트 방문하기</a></p>
+  {% endif %}
+</main>
+{% endblock %}

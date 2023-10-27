@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  {% block title %}<title>Eatwell - 세상을 더 맛있게</title>{% endblock %}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet" />
+
+
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'styles/shared.css' %}">
+  <script src="{% static 'scripts/responsive.js' %}" defer></script>
+  {% block link %}<!-- Add additional CSS in static file -->{% endblock %}
+</head>
+
+<body>
+  {% block sidebar %}
+  <!-- insert default navigation text for every page -->
+  <header id="main-header">
+    <div id="logo"><a href="{% url 'index' %}">Eatwell</a></div>
+    <nav>
+      <ul>
+        <li class="nav-item">
+          <a href="{% url 'restaurants' %}">맛집 찾아보기</a>
+        </li>
+        <li class="nav-item">
+          <a href="/recommend">맛집 공유하기</a>
+        </li>
+        <li class="nav-item"><a href="{% url 'about' %}">Eatwell 소개</a></li>
+      </ul>
+    </nav>
+    <button id="drawer-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+  <aside id="mobile-drawer">
+    <nav>
+      <ul>
+        <li class="nav-item">
+          <a href="{% url 'restaurants' %}">Browse Restaurants</a>
+        </li>
+        <li class="nav-item">
+          <a href="/recommend">Share a Restaurant</a>
+        </li>
+        <li class="nav-item"><a href="{% url 'about' %}">About Eatwell</a></li>
+      </ul>
+    </nav>
+  </aside>
+  {% endblock %}
+  {% block content %}
+  <!-- default content text (typically empty) -->
+  {% endblock %}
+</body>
+
+</html>

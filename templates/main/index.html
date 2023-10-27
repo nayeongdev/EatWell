@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+{% load static %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'styles/index.css' %}" />
+{% endblock %}
+
+{% block content %}
+<main>
+  <h1>더 맛있는 세상을 위해!</h1>
+  <p>
+    내가 좋아하는 맛집을 공유하거나 다른 사용자의 맛집 추천을 찾아보세요!
+  </p>
+  <ul id="actions">
+    <li>
+      <a href="{% url 'restaurants' %}">다른 사람의 맛집 찾아보기</a>
+    </li>
+    <li>
+      <a href="/recommend">내 맛집 공유하기</a>
+    </li>
+  </ul>
+</main>
+{% endblock %}
