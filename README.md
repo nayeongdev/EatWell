@@ -14,12 +14,12 @@ gantt
         2단계    :2023-10-30, 1d
         3단계    :2023-11-1, 1d
     section FE
-        0단계 :2023-10-26, 2d
+        0단계    :2023-10-26, 2d
         1단계    :2023-10-28, 2d
         2단계    :2023-10-30, 2d
         3단계    :2023-11-2, 3d
     section BE
-        0단계 :2023-10-26, 2d
+        0단계    :2023-10-26, 2d
         1단계    :2023-10-28, 2d
         2단계    :2023-10-30, 2d
         3단계    :2023-11-2, 3d
@@ -45,5 +45,5 @@ URL 구조
 
 | 앱이름: `restaurants`            | views 함수이름    | html 파일이름           |  비고                         |
 |:--------------------------------|:-----------------|:------------------------|:------------------------------|
-|`'restaurants/'`                 |RestaurantsList   |`restaurants.html`       |                               |
-|`'restaurants/<int:pk>'`         |RestaurantsDetail |`restaurants-detail.html`|게시물이 없을 경우에는 404로 연결|
+|`'restaurants/'`                 |RestaurantsList   |`restaurant_list.html`       |                               |
+|`'restaurants/<int:pk>/'`         |RestaurantsDetail |`restaurant_detail.html`|게시물이 없을 경우에는 404로 연결|
