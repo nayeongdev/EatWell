@@ -36,6 +36,10 @@ URL 구조
 1.2 'about/'                           : 사이트 소개
 2.1 'restaurants/'                     : 추천식당 목록
 2.2 'restaurants/<int:pk>/'            : 추천식당 읽기
+2.3 'restaurants/recommend/'           : 추천식당 작성
+2.4 'restaurants/<int:pk>/edit/'       : 추천식당 업데이트
+2.5 'restaurants/<int:pk>/delete/'     : 추천식당 삭제
+2.3 'restaurants/confirm/'             : 작성 후 확인
 ```
 
 | 앱이름: `main` | views 함수이름 | html 파일이름 | 비고    |
@@ -43,7 +47,11 @@ URL 구조
 |`''`           |index           |`index.html`  |         |
 |`'about/'`     |about           |`about.html`  |         |
 
-| 앱이름: `restaurants`            | views 함수이름    | html 파일이름           |  비고                         |
-|:--------------------------------|:-----------------|:------------------------|:------------------------------|
-|`'restaurants/'`                 |RestaurantsList   |`restaurant_list.html`       |                               |
-|`'restaurants/<int:pk>/'`         |RestaurantsDetail |`restaurant_detail.html`|게시물이 없을 경우에는 404로 연결|
+| 앱이름: `restaurants`           | views 함수이름    | html 파일이름           |  비고                         |
+|:--------------------------------|:-----------------|:------------------------|:-----------------------------|
+|`'restaurants/'`                 |RestaurantList    |`restaurant_list.html`   |                              |
+|`'restaurants/<int:pk>/'`        |RestaurantDetail  |`restaurant_detail.html` |게시물이 없을 경우에는 404로 연결|
+|`'restaurants/recommend/'`       |RestaurantCreate  |`recommend.html`         |게시물 등록 후 확인 페이지로 연결|
+|`'restaurants/<int:pk>/edit/'`   |RestaurantUpdate  |`recommend.html`         |                              |
+|`'restaurants/<int:pk>/delete/'` |RestaurantDelete  |`delete.html`            |삭제 완료 이후, 글 목록 화면 연결|
+|`'restaurants/confirm/'`         |confirm           |`confirm.html`           |확인 페이지                    |
