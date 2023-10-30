@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Restaurant
 from .forms import RestaurantForm
 
@@ -20,6 +20,15 @@ class RestaurantCreate(CreateView):
     success_url = reverse_lazy("restaurants")
 
 
+class RestaurantUpdate(UpdateView):
+    model = Restaurant
+    form_class = RestaurantForm
+
+    def get_success_url(self):
+        return reverse_lazy("restaurant-detail", kwargs={"pk": self.object.pk})
+
+
 restaurant_list = RestaurantList.as_view()
 restaurant_detail = RestaurantDetail.as_view()
 restaurant_create = RestaurantCreate.as_view()
+restaurant_update = RestaurantUpdate.as_view()
