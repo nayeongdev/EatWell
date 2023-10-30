@@ -11,7 +11,22 @@
   <p>다른 사용자의 추천 리스트로 나의 맛집을 찾아보세요!</p>
 
   <form action="" method="GET">
-    <input type="text" name="q" value="{{ request.GET.q }}">
+    {% csrf_token %}
+    <label for="cuisine">음식 종류</label>
+    <select name="cuisine" id="cuisine">
+      <option value="" {% if not request.GET.cuisine %}selected{% endif %}>전체</option>
+      <option value="한식" {% if request.GET.cuisine == "한식" %}selected{% endif %}>한식</option>
+      <option value="양식" {% if request.GET.cuisine == "양식" %}selected{% endif %}>양식</option>
+      <option value="일식" {% if request.GET.cuisine == "일식" %}selected{% endif %}>일식</option>
+      <option value="중식" {% if request.GET.cuisine == "중식" %}selected{% endif %}>중식</option>
+      <option value="아시안음식" {% if request.GET.cuisine == "아시안음식" %}selected{% endif %}>아시안 음식</option>
+      <option value="분식" {% if request.GET.cuisine == "분식" %}selected{% endif %}>분식</option>
+      <option value="카페" {% if request.GET.cuisine == "카페" %}selected{% endif %}>카페</option>
+      <option value="패스트푸드" {% if request.GET.cuisine == "패스트푸드" %}selected{% endif %}>패스트푸드</option>
+      <option value="기타" {% if request.GET.cuisine == "기타" %}selected{% endif %}>기타</option>
+    </select>
+    <label for="q">식당 이름</label>
+    <input type="text" name="q" value="{{ request.GET.q }}" id="q">
     <button type="submit">검색</button>
   </form>
 

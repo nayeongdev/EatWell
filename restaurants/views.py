@@ -18,8 +18,11 @@ class RestaurantList(ListView):
     def get_queryset(self):
         qs = super().get_queryset()
         q = self.request.GET.get("q", "")
+        cuisine = self.request.GET.get("cuisine", "")
         if q:
             qs = qs.filter(name__icontains=q)
+        if cuisine:
+            qs = qs.filter(cuisine=cuisine)
         return qs
 
 
