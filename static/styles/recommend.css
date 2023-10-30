@@ -15,7 +15,8 @@ form {
 
 label,
 input,
-textarea {
+textarea, 
+select {
   display: block;
   width: 100%;
 }
@@ -26,7 +27,8 @@ label {
 }
 
 input,
-textarea {
+textarea, 
+select {
   font: inherit;
   padding: 0.25rem;
   border-radius: 4px;
@@ -37,7 +39,8 @@ textarea {
 }
 
 input:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
   background-color: rgb(252, 234, 197);
 }
 
