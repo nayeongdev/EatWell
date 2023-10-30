@@ -15,6 +15,13 @@ class RestaurantList(ListView):
     model = Restaurant
     ordering = "-pk"
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        q = self.request.GET.get("q", "")
+        if q:
+            qs = qs.filter(name__icontains=q)
+        return qs
+
 
 class RestaurantDetail(DetailView):
     model = Restaurant

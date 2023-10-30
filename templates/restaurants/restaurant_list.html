@@ -8,9 +8,16 @@
 {% block content %}
 <main>
   <h1>맛집 추천 리스트</h1>
-  {% if object_list|length > 0 %}
   <p>다른 사용자의 추천 리스트로 나의 맛집을 찾아보세요!</p>
+
+  <form action="" method="GET">
+    <input type="text" name="q" value="{{ request.GET.q }}">
+    <button type="submit">검색</button>
+  </form>
+
+  {% if object_list|length > 0 %}
   <p>{{ object_list|length }}개의 맛집이 있어요</p>
+
   <ul id="restaurants-list">
     {% for restaurant in object_list %}
     <li class="restaurant-item">
