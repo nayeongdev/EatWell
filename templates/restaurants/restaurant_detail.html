@@ -11,7 +11,8 @@
     {{ object.name }}
   </h1>
   <p>
-    <a href="{% url 'restaurant-edit' object.pk %}">수정하기</a>
+    <a href="{% url 'restaurant-edit' object.pk %}">수정하기</a> | 
+    <a href="{% url 'restaurant-delete' object.pk %}">삭제하기</a>
   </p>
   <P>
     {{ object.cuisine }} | {{ object.address }}
