@@ -15,9 +15,15 @@
     <li>
       <a href="{% url 'restaurants' %}">다른 사람의 맛집 찾아보기</a>
     </li>
+    {% if request.user.is_authenticated %}
     <li>
       <a href="{% url 'recommend' %}">내 맛집 공유하기</a>
     </li>
+    {% else %}
+    <li>
+      <a href="{% url 'recommend' %}">로그인하고, 내 맛집 공유하기</a>
+    </li>
+    {% endif %}
   </ul>
 </main>
 {% endblock %}

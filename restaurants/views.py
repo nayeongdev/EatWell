@@ -1,12 +1,10 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import (
-    ListView,
-    DetailView,
-    CreateView,
-    UpdateView,
-    DeleteView,
-)
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from .models import Restaurant
 from .forms import RestaurantForm
 
@@ -30,13 +28,13 @@ class RestaurantDetail(DetailView):
     model = Restaurant
 
 
-class RestaurantCreate(CreateView):
+class RestaurantCreate(LoginRequiredMixin, CreateView):
     model = Restaurant
     form_class = RestaurantForm
     success_url = reverse_lazy("restaurants")
 
 
-class RestaurantUpdate(UpdateView):
+class RestaurantUpdate(LoginRequiredMixin, UpdateView):
     model = Restaurant
     form_class = RestaurantForm
 
@@ -44,7 +42,7 @@ class RestaurantUpdate(UpdateView):
         return reverse_lazy("restaurant-detail", kwargs={"pk": self.object.pk})
 
 
-class RestaurantDelete(DeleteView):
+class RestaurantDelete(LoginRequiredMixin, DeleteView):
     model = Restaurant
     success_url = reverse_lazy("restaurants")
 
