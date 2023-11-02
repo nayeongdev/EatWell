@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from .models import Restaurant
 from .forms import RestaurantForm
@@ -38,17 +38,30 @@ class RestaurantCreate(LoginRequiredMixin, CreateView):
         restaurant.author = self.request.user
         return super().form_valid(form)  # 이렇게 호출했을 때 저장
 
-class RestaurantUpdate(LoginRequiredMixin, UpdateView):
+
+class RestaurantUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Restaurant
     form_class = RestaurantForm
+
+    def test_func(self):
+        return self.get_object().author == self.request.user
+
+    def handle_no_permission(self):
+        return redirect("restaurants")
 
     def get_success_url(self):
         return reverse_lazy("restaurant-detail", kwargs={"pk": self.object.pk})
 
 
-class RestaurantDelete(LoginRequiredMixin, DeleteView):
+class RestaurantDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Restaurant
     success_url = reverse_lazy("restaurants")
+
+    def test_func(self):
+        return self.get_object().author == self.request.user
+
+    def handle_no_permission(self):
+        return redirect("restaurants")
 
 
 restaurant_list = RestaurantList.as_view()
