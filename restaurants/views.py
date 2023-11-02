@@ -33,6 +33,10 @@ class RestaurantCreate(LoginRequiredMixin, CreateView):
     form_class = RestaurantForm
     success_url = reverse_lazy("restaurants")
 
+    def form_valid(self, form):
+        restaurant = form.save(commit=False)  # commit=False는 DB에 저장하지 않고 객체만 반환
+        restaurant.author = self.request.user
+        return super().form_valid(form)  # 이렇게 호출했을 때 저장
 
 class RestaurantUpdate(LoginRequiredMixin, UpdateView):
     model = Restaurant
