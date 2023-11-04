@@ -4,6 +4,8 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import CreateView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 
 from .forms import SignUpForm
 
@@ -32,3 +34,7 @@ class SignUpView(UserPassesTestMixin, CreateView):
 login = UserLoginView.as_view()
 logout = LogoutView.as_view(next_page=settings.LOGIN_URL)
 signup = SignUpView.as_view()
+
+@login_required
+def profile(request):
+    return render(request, 'accounts/profile.html')
