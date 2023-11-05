@@ -10,16 +10,25 @@
   <h1>
     {{ object.name }}
   </h1>
+
   {% if object.author == user %}
   <p>
     <a href="{% url 'restaurant-edit' object.pk %}">수정하기</a> |
     <a href="{% url 'restaurant-delete' object.pk %}">삭제하기</a>
   </p>
   {% endif %}
+
   <p> {{ object.cuisine }} | {{ object.address }} </p>
   <p>{{ object.description }}</p>
+
   {% if object.website %}
   <p><a href="{{ object.website }}">사이트 방문하기</a></p>
   {% endif %}
+
+  <ul>
+    {% for tag in object.tags.all %}
+    <li><a href="">{{ tag }}</a></li>
+    {% endfor %}
+  </ul>
 </main>
 {% endblock %}

@@ -48,9 +48,11 @@
             {{ restaurant.address }}
           </p>
         </div>
-        <p>
-          {{ restaurant.description }}
-        </p>
+        <ul>
+          {% for tag in restaurant.tags.all %}
+          <li><a href="#">{{ tag }}</a></li>
+          {% endfor %}
+        </ul>
         <p>{{ restaurant.author }}</p>
         <div class="restaurant-actions">
           <a href="{% url 'restaurant-detail' restaurant.id %}">View Restaurant</a>
