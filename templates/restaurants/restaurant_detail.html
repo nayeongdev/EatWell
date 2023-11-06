@@ -6,58 +6,56 @@
 {% endblock %}
 
 {% block content %}
-<main>
-  <h2>{{ object.name }}</h2>
-  
-  <p>조회수 : {{restaurant.view_count}}</p>
-  <p>작성일 : {{ restaurant.created_at|date:'Y-m-d H:i' }}</p>
+<h2>{{ object.name }}</h2>
 
-  {% if object.author == user %}
-  <p>
-    <a href="{% url 'restaurant_edit' object.pk %}">수정하기</a> |
-    <a href="{% url 'restaurant_delete' object.pk %}">삭제하기</a>
-  </p>
+<p>조회수 : {{restaurant.view_count}}</p>
+<p>작성일 : {{ restaurant.created_at|date:'Y-m-d H:i' }}</p>
+
+{% if object.author == user %}
+<p>
+  <a href="{% url 'restaurant_edit' object.pk %}">수정하기</a> |
+  <a href="{% url 'restaurant_delete' object.pk %}">삭제하기</a>
+</p>
+{% endif %}
+
+{% if object.thumb_image %}
+<img src="{{ object.thumb_image.url }}" alt="">
+{% endif %}
+
+<p>{{ object.cuisine }} | {{ object.address }}</p>
+<p>{{ object.description }}</p>
+
+{% if object.website %}
+<p><a href="{{ object.website }}">사이트 방문하기</a></p>
+{% endif %}
+
+<ul>
+  {% for tag in object.tags.all %}
+  <li><a href="">{{ tag }}</a></li>
+  {% endfor %}
+</ul>
+
+<hr>
+
+<section>
+  <h3>댓글</h3>
+  <p><span>{{ object.comments.count }}</span>개의 댓글이 있습니다.</p>
+  {% if request.user.is_authenticated %}
+  <form action="{% url 'comment_new' object.pk %}" method="post">
+    {% csrf_token %}
+    {{ comment_form.message }}
+    <input type="submit" value="댓글 작성">
+  </form>
+  {% else %}
+  <p>댓글을 작성하려면 로그인하세요</p>
+  <a href="{% url 'login' %}">로그인</a>
   {% endif %}
-
-  {% if object.thumb_image %}
-  <img src="{{ object.thumb_image.url }}" alt="">
-  {% endif %}
-
-  <p>{{ object.cuisine }} | {{ object.address }}</p>
-  <p>{{ object.description }}</p>
-
-  {% if object.website %}
-  <p><a href="{{ object.website }}">사이트 방문하기</a></p>
-  {% endif %}
-
   <ul>
-    {% for tag in object.tags.all %}
-    <li><a href="">{{ tag }}</a></li>
+    {% for comment in object.comments.all %}
+    <li>
+      <p>{{ comment.message }} - {{ comment.author }} <small>{{ comment.updated_at }}</small></p>
+    </li>
     {% endfor %}
   </ul>
-
-  <hr>
-
-  <section>
-    <h3>댓글</h3>
-    <p><span>{{ object.comments.count }}</span>개의 댓글이 있습니다.</p>
-    {% if request.user.is_authenticated %}
-    <form action="{% url 'comment_new' object.pk %}" method="post">
-      {% csrf_token %}
-      {{ comment_form.message }}
-      <input type="submit" value="댓글 작성">
-    </form>
-    {% else %}
-    <p>댓글을 작성하려면 로그인하세요</p>
-    <a href="{% url 'login' %}">로그인</a>
-    {% endif %}
-    <ul>
-      {% for comment in object.comments.all %}
-      <li>
-        <p>{{ comment.message }} - {{ comment.author }} <small>{{ comment.updated_at }}</small></p>
-      </li>
-      {% endfor %}
-    </ul>
-  </section>
-</main>
+</section>
 {% endblock %}

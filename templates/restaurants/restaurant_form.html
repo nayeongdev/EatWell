@@ -6,15 +6,10 @@
 {% endblock %}
 
 {% block content %}
-<main>
-  <h1>내가 좋아하는 맛집을 공유하세요!</h1>
-        <form method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <button type="submit">맛집 공유하기</button>
-        </form>
-      </main>
-</body>
-
-</html>
+<h1>내가 좋아하는 맛집을 공유하세요!</h1>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">맛집 공유하기</button>
+</form>
 {% endblock %}
