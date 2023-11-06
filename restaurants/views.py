@@ -27,6 +27,13 @@ class RestaurantList(ListView):
 class RestaurantDetail(DetailView):
     model = Restaurant
 
+    def get_object(self, queryset=None):
+        pk = self.kwargs.get('pk')
+        restaurant = Restaurant.objects.get(pk=pk)
+        restaurant.view_count += 1
+        restaurant.save()
+        return super().get_object(queryset)
+
 
 class RestaurantCreate(LoginRequiredMixin, CreateView):
     model = Restaurant

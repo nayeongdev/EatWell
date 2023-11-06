@@ -53,6 +53,7 @@
           <li><a href="#">{{ tag }}</a></li>
           {% endfor %}
         </ul>
+        <p>조회수 : {{restaurant.view_count}}</p>
         <p>{{ restaurant.author }}</p>
         <div class="restaurant-actions">
           <a href="{% url 'restaurant-detail' restaurant.id %}">View Restaurant</a>
