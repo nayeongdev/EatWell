@@ -37,9 +37,10 @@
     {% for restaurant in object_list %}
     <li class="restaurant-item">
       <article>
-        <h2>
-          {{ restaurant.name }}
-        </h2>
+        {% if restaurant.thumb_image %}
+        <img src="{{ restaurant.thumb_image.url }}" alt="">
+        {% endif %}
+        <h2>{{ restaurant.name }}</h2>
         <div class="restaurant-meta">
           <p>
             {{ restaurant.cuisine }}

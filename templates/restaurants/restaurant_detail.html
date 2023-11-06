@@ -20,6 +20,10 @@
   </p>
   {% endif %}
 
+  {% if object.thumb_image %}
+  <img src="{{ object.thumb_image.url }}" alt="">
+  {% endif %}
+
   <p>{{ object.cuisine }} | {{ object.address }}</p>
   <p>{{ object.description }}</p>
 

@@ -74,17 +74,17 @@ class RestaurantUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return initial
 
     def form_valid(self, form):
-        # 폼에서 태그 필드 값을 얻음
         tags_input = form.cleaned_data["tags_input"]
         tags_list = [tag.strip() for tag in tags_input.split(",") if tag.strip()]
 
-        # 수정할 레스토랑 객체를 얻음
-        restaurant = form.save()
+        restaurant = form.save(commit=False)
 
-        # 기존 태그를 모두 제거
+        if 'thumb_image' in self.request.FILES:
+            restaurant.thumb_image = self.request.FILES['thumb_image']
+
+        restaurant.save()
+
         restaurant.tags.clear()
-
-        # 사용자가 입력한 태그를 추가
         for tag_name in tags_list:
             tag, created = Tag.objects.get_or_create(name=tag_name)
             restaurant.tags.add(tag)
