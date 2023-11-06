@@ -59,7 +59,7 @@
         <p>작성일 : {{ restaurant.created_at|date:'Y-m-d H:i' }}</p>
         <p>{{ restaurant.author }}</p>
         <div class="restaurant-actions">
-          <a href="{% url 'restaurant-detail' restaurant.id %}">View Restaurant</a>
+          <a href="{% url 'restaurant_detail' restaurant.id %}">View Restaurant</a>
         </div>
       </article>
     </li>

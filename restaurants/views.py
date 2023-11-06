@@ -92,7 +92,7 @@ class RestaurantUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return super().form_valid(form)  # 이렇게 호출했을 때 저장
 
     def get_success_url(self):
-        return reverse_lazy("restaurant-detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy("restaurant_detail", kwargs={"pk": self.object.pk})
 
 
 class RestaurantDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
