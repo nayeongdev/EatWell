@@ -1,24 +1,22 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
-  {% block title %}<title>Eatwell - 세상을 더 맛있게</title>{% endblock %}
+  <title>Eatwell -{% block title %}세상을 더 맛있게{% endblock %}</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Roboto:wght@400;700&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&family=Roboto:wght@400;700&display=swap"
     rel="stylesheet" />
 
-
-  {% load static %}
   <link rel="stylesheet" href="{% static 'styles/shared.css' %}">
   <script src="{% static 'scripts/responsive.js' %}" defer></script>
-  {% block link %}<!-- Add additional CSS in static file -->{% endblock %}
+  {% block styles %}<!-- Add additional CSS in static file -->{% endblock %}
 </head>
 
 <body>
-  {% block sidebar %}
   <!-- insert default navigation text for every page -->
   <header id="main-header">
     <div id="logo"><a href="{% url 'index' %}">Eatwell</a></div>
@@ -42,7 +40,7 @@
         <li class="nav-item"><a href="{% url 'logout' %}">로그아웃</a></li>
         {% else %}
         <li class="nav-item">
-        <a href="{% url 'login' %}">로그인</a>
+          <a href="{% url 'login' %}">로그인</a>
         </li>
         <li class="nav-item">
           <a href="{% url 'signup' %}">회원가입</a>
@@ -64,7 +62,7 @@
         <li class="nav-item"><a href="{% url 'logout' %}">로그아웃</a></li>
         {% else %}
         <li class="nav-item">
-        <a href="{% url 'login' %}">로그인</a>
+          <a href="{% url 'login' %}">로그인</a>
         </li>
         <li class="nav-item">
           <a href="{% url 'signup' %}">회원가입</a>
@@ -87,13 +85,12 @@
     </nav>
   </aside>
   <main>
-    <div class="container">
+    <div>
       {% block content %}
+      <!-- default content text (typically empty) -->
       {% endblock %}
     </div>
   </main>
-  <!-- default content text (typically empty) -->
-  {% endblock %}
 </body>
 
 </html>
