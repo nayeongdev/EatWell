@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&family=Roboto:wght@400;700&display=swap"
     rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet" />
 
   <link rel="stylesheet" href="{% static 'styles/shared.css' %}">
   <script src="{% static 'scripts/responsive.js' %}" defer></script>
@@ -34,16 +35,28 @@
           <a href="{% url 'about' %}">Eatwell 소개</a>
         </li>
       </ul>
-      <ul>
+    </nav>
+    <nav>
+      <ul class="center">
         {% if request.user.is_authenticated %}
-        <li class="nav-item"><a href="#">{{request.user | title}} 미식가님</a></li>
-        <li class="nav-item"><a href="{% url 'logout' %}">로그아웃</a></li>
-        {% else %}
-        <li class="nav-item">
-          <a href="{% url 'login' %}">로그인</a>
+        <li class="login-item">
+          <a href="{% url 'profile' %}"><strong>{{request.user | title}}</strong> 미식가님</a>
         </li>
-        <li class="nav-item">
-          <a href="{% url 'signup' %}">회원가입</a>
+        <li class="login-item">
+          <a href="{% url 'logout' %}" class="btn btn-outline">
+            <span class="material-symbols-rounded">logout</span> 로그아웃
+          </a>
+        </li>
+        {% else %}
+        <li class="login-item">
+          <a href="{% url 'login' %}" class="btn btn-primary">
+            <span class="material-symbols-rounded">login</span> 로그인
+          </a>
+        </li>
+        <li class="login-item">
+          <a href="{% url 'signup' %}" class="btn btn-outline">
+            <span class="material-symbols-rounded">account_circle</span> 회원가입
+          </a>
         </li>
         {% endif %}
       </ul>
@@ -62,10 +75,10 @@
         <li class="nav-item"><a href="{% url 'logout' %}">로그아웃</a></li>
         {% else %}
         <li class="nav-item">
-          <a href="{% url 'login' %}">로그인</a>
+          <a href="{% url 'login' %}"><span class="material-symbols-rounded">login</span>로그인</a>
         </li>
         <li class="nav-item">
-          <a href="{% url 'signup' %}">회원가입</a>
+          <a href="{% url 'signup' %}"><span class="material-symbols-rounded">account_circle</span>회원가입</a>
         </li>
         {% endif %}
       </ul>
