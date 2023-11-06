@@ -7,11 +7,10 @@
 
 {% block content %}
 <main>
-  <h1>
-    {{ object.name }}
-  </h1>
+  <h2>{{ object.name }}</h2>
   
   <p>조회수 : {{restaurant.view_count}}</p>
+  <p>작성일 : {{ restaurant.created_at|date:'Y-m-d H:i' }}</p>
 
   {% if object.author == user %}
   <p>
@@ -36,5 +35,19 @@
     <li><a href="">{{ tag }}</a></li>
     {% endfor %}
   </ul>
+
+  <hr>
+
+  <section>
+    <h3>댓글</h3>
+    <p><span>{{ object.comments.count }}</span>개의 댓글이 있습니다.</p>
+    <ul>
+      {% for comment in object.comments.all %}
+      <li>
+        <p>{{ comment.message }} - {{ comment.author }} <small>{{ comment.updated_at }}</small></p>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
 </main>
 {% endblock %}
