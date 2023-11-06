@@ -5,8 +5,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from .models import Restaurant, Tag
-from .forms import RestaurantForm
+from .models import Restaurant, Tag, Comment
+from .forms import RestaurantForm, CommentForm
 
 
 class RestaurantList(ListView):
@@ -27,8 +27,13 @@ class RestaurantList(ListView):
 class RestaurantDetail(DetailView):
     model = Restaurant
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comment_form'] = CommentForm()
+        return context
+    
     def get_object(self, queryset=None):
-        pk = self.kwargs.get('pk')
+        pk = self.kwargs.get("pk")
         restaurant = Restaurant.objects.get(pk=pk)
         restaurant.view_count += 1
         restaurant.save()
@@ -79,8 +84,8 @@ class RestaurantUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
         restaurant = form.save(commit=False)
 
-        if 'thumb_image' in self.request.FILES:
-            restaurant.thumb_image = self.request.FILES['thumb_image']
+        if "thumb_image" in self.request.FILES:
+            restaurant.thumb_image = self.request.FILES["thumb_image"]
 
         restaurant.save()
 
@@ -106,8 +111,24 @@ class RestaurantDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return redirect("restaurants")
 
 
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentForm
+
+    def form_valid(self, form):
+        comment = form.save(commit=False)
+        comment.author = self.request.user
+        comment.restaurant_id = self.kwargs['pk']
+        comment.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("restaurant_detail", kwargs={"pk": self.kwargs['pk']})
+
+
 restaurant_list = RestaurantList.as_view()
 restaurant_detail = RestaurantDetail.as_view()
 restaurant_create = RestaurantCreate.as_view()
 restaurant_update = RestaurantUpdate.as_view()
 restaurant_delete = RestaurantDelete.as_view()
+comment_new = CommentCreateView.as_view()
