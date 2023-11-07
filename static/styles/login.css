@@ -1,0 +1,26 @@
+main div {
+  display: flex;
+  justify-content: center;
+}
+
+main form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+}
+
+main ul {
+  list-style: none;
+  margin: 3rem 0;
+  padding: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+main li {
+  align-self: start;
+}

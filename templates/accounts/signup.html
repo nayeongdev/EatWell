@@ -1,4 +1,10 @@
 {%extends 'base_generic.html'%}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'styles/login.css' %}">
+{% endblock %}
+
 
 {%block content%}
 <form method="post" novalidate>
@@ -18,10 +24,9 @@
 		</li>
 		{% endfor %}
 	</ul>
-	<input type="submit" value="가입하기">
+	<input type="submit" class="btn btn-primary" value="가입하기">
 	<hr>
 	<ul>
-		<li>비밀번호를 잊으셨나요? <a href="#">비밀번호 재설정하기</a></li>
 		<li>계정이 이미 있으신가요? <a href="{% url 'login'%}">로그인하러 가기</a></li>
 	</ul>
 </form>
