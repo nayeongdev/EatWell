@@ -10,6 +10,6 @@
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="submit">맛집 공유하기</button>
+  <button type="submit" class="btn btn-primary">맛집 공유하기</button>
 </form>
 {% endblock %}
