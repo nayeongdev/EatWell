@@ -8,32 +8,52 @@
 {% block content %}
 <h2>{{ object.name }}</h2>
 
-<p>조회수 : {{restaurant.view_count}}</p>
-<p>작성일 : {{ restaurant.created_at|date:'Y-m-d H:i' }}</p>
+<div class="restaurant-meta">
+  <div class="meta-info">
+    <p>조회수 : {{restaurant.view_count}}</p>
+    <p>작성일 : {{ restaurant.created_at|date:'Y-m-d H:i' }}</p>
+  </div>
+  {% if object.author == user %}
+  <div>
+    <a href="{% url 'restaurant_edit' object.pk %}">수정하기</a> |
+    <a href="{% url 'restaurant_delete' object.pk %}">삭제하기</a>
+  </div>
+  {% endif %}
+</div>
 
-{% if object.author == user %}
-<p>
-  <a href="{% url 'restaurant_edit' object.pk %}">수정하기</a> |
-  <a href="{% url 'restaurant_delete' object.pk %}">삭제하기</a>
-</p>
-{% endif %}
 
 {% if object.thumb_image %}
-<img src="{{ object.thumb_image.url }}" alt="">
+<img src="{{ object.thumb_image.url }}" style="width:100%" alt="">
 {% endif %}
 
-<p>{{ object.cuisine }} | {{ object.address }}</p>
-<p>{{ object.description }}</p>
-
-{% if object.website %}
-<p><a href="{{ object.website }}">사이트 방문하기</a></p>
-{% endif %}
-
-<ul>
-  {% for tag in object.tags.all %}
-  <li><a href="">{{ tag }}</a></li>
-  {% endfor %}
-</ul>
+<div class="restaurant-item">
+  <article>
+    <h3>식당 이름</h3>
+    <p>
+      <span class="material-symbols-rounded">restaurant</span>
+      {{ restaurant.cuisine }}
+    </p>
+    <h3>음식 종류</h3>
+    <p>
+      <span class="material-symbols-rounded">pin_drop</span>
+      {{ restaurant.address }}
+    </p>
+    <h3>추천 이유</h3>
+    <p>{{ object.description }}</p>
+    
+    {% if object.website %}
+    <h3>웹사이트</h3>
+    <p><a href="{{ object.website }}">{{ object.website }}</a></p>
+    {% endif %}
+    
+    <h3>태그</h3>
+    <ul>
+      {% for tag in object.tags.all %}
+      <li><a href="" class="btn btn-outline">{{ tag }}</a></li>
+      {% endfor %}
+    </ul>
+  </article>
+</div>
 
 <hr>
 
@@ -41,21 +61,24 @@
   <h3>댓글</h3>
   <p><span>{{ object.comments.count }}</span>개의 댓글이 있습니다.</p>
   {% if request.user.is_authenticated %}
-  <form action="{% url 'comment_new' object.pk %}" method="post">
+  <form action="{% url 'comment_new' object.pk %}" method="post" class="comment-form">
     {% csrf_token %}
     {{ comment_form.message }}
-    <input type="submit" value="댓글 작성">
+    <button type="submit" class="btn btn-primary">댓글 작성</button>
   </form>
   {% else %}
   <p>댓글을 작성하려면 로그인하세요</p>
   <a href="{% url 'login' %}">로그인</a>
   {% endif %}
-  <ul>
-    {% for comment in object.comments.all %}
-    <li>
-      <p>{{ comment.message }} - {{ comment.author }} <small>{{ comment.updated_at }}</small></p>
-    </li>
-    {% endfor %}
-  </ul>
+  <div class="comments">
+    <ul>
+      {% for comment in object.comments.all %}
+      <li>
+        <p>{{ comment.author }} <small>{{ comment.updated_at }}</small></p>
+        <p>{{ comment.message }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
 </section>
 {% endblock %}
