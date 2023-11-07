@@ -1,10 +1,20 @@
 {% extends "base_generic.html" %}
 
+{% block styles %}
+<style>
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+</style>
+{% endblock %}
+
 {% block content %}
 <h1>삭제하기</h1>
 <form method="post">
   {% csrf_token %}
   <p>정말 "{{ object.name }}"을 삭제하시겠습니까?</p>
-  <button type="submit">네, 삭제할게요</button>
+  <button type="submit" class="btn btn-primary">네, 삭제할게요</button>
 </form>
 {% endblock %}
