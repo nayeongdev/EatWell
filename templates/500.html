@@ -1,19 +1,8 @@
 {% extends "base_generic.html" %}
 {% load static %}
 
-{% block style %}
-<style>
-  img {
-    display: block;
-    width: 50%;
-    height: auto;
-    min-width: 15rem;
-  }
-</style>
-{% endblock %}
-
 {% block content %}
-<img src="{%static 'images/error.png'%}" alt="">
+<img src="{%static 'images/error.png'%}" style="width: 30%;" alt="">
 <h1>무엇인가 잘못 됐네요😭</h1>
 <p>
   서버에 문제가 생겼습니다 - 빠른 시일내에 고치도록 하겠습니다

@@ -1,19 +1,8 @@
 {% extends "base_generic.html" %}
 {% load static %}
 
-{% block style %}
-<style>
-  img {
-    display: block;
-    width: 50%;
-    height: auto;
-    min-width: 15rem;
-  }
-</style>
-{% endblock %}
-
 {% block content %}
-<img src="{%static 'images/error.png'%}" alt="">
+<img src="{%static 'images/error.png'%}" style="width: 30%;" alt="">
 <h1>페이지를 찾을 수 없습니다😭</h1>
 <p>
   지금은 없는 페이지입니다. 다시 확인해주세요
