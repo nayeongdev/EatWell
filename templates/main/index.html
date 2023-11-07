@@ -2,26 +2,31 @@
 {% load static %}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'styles/index.css' %}" />
+<link rel="stylesheet" href="{% static 'styles/index.css' %}">
 {% endblock %}
 
 {% block content %}
-<h1>더 맛있는 세상을 위해!</h1>
-<p>
-  내가 좋아하는 맛집을 공유하거나 다른 사용자의 맛집 추천을 찾아보세요!
-</p>
-<ul id="actions">
-  <li>
-    <a href="{% url 'restaurants' %}">다른 사람의 맛집 찾아보기</a>
-  </li>
-  {% if request.user.is_authenticated %}
-  <li>
-    <a href="{% url 'recommend' %}">내 맛집 공유하기</a>
-  </li>
-  {% else %}
-  <li>
-    <a href="{% url 'recommend' %}">로그인하고, 내 맛집 공유하기</a>
-  </li>
-  {% endif %}
-</ul>
+<section class="feature">
+  <img src="{%static 'images/main_hero.png'%}" alt="" class="feature-image">
+  <div class="feature-content">
+    <h1>Eatwell</h1>
+    <h2>더 맛있는 세상을 위해!</h2>
+    <p>내가 좋아하는 맛집을 공유하거나 다른 사용자의 맛집 추천을 찾아보세요!</p>
+  </div>
+  <ul>
+    {% if request.user.is_authenticated %}
+    <li>
+      <a href="{% url 'recommend' %}" class="btn btn-primary cta">내 맛집 공유하기</a>
+    </li>
+    {% else %}
+    <li>
+      <a href="{% url 'recommend' %}" class="btn btn-primary cta">로그인하고, 내 맛집 공유하기</a>
+    </li>
+    {% endif %}
+    <li>
+      <a href="{% url 'restaurants' %}" class="btn btn-outline cta">다른 사람의 맛집 찾아보기</a>
+    </li>
+  </ul>
+</section>
+
 {% endblock %}
