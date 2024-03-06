@@ -1,6 +1,8 @@
 {% extends "base_generic.html" %}
 {% load static %}
 
+{% block title %}{{restaurant.author}}님이 추천한 {{restaurant.name}}{% endblock %}
+
 {% block styles %}
 <link rel="stylesheet" href="{% static 'styles/restaurants.css' %}" />
 {% endblock %}

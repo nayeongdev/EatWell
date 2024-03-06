@@ -1,5 +1,7 @@
 {% extends "base_generic.html" %}
 
+{% block title %}{{restaurant.name}} 글 삭제 확인{% endblock %}
+
 {% block styles %}
 <style>
   form {
@@ -14,7 +16,7 @@
 <h1>삭제하기</h1>
 <form method="post">
   {% csrf_token %}
-  <p>정말 "{{ object.name }}"을 삭제하시겠습니까?</p>
+  <p>정말 "{{ object.name }}"을(를) 삭제하시겠습니까?</p>
   <button type="submit" class="btn btn-primary">네, 삭제할게요</button>
 </form>
 {% endblock %}

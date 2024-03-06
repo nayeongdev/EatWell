@@ -1,6 +1,8 @@
 {% extends "base_generic.html" %}
 {% load static %}
 
+{% block title %}맛집 추천 리스트{% endblock %}
+
 {% block styles %}
 <link rel="stylesheet" href="{% static 'styles/restaurants.css' %}" />
 {% endblock %}
@@ -29,7 +31,7 @@
   <button type="submit" class="btn btn-primary">검색</button>
 </form>
 
-{% if object_list|length > 0 %}
+{% if object_list.exists %}
 <p><span>{{ object_list|length }}</span>개의 맛집이 있어요</p>
 
 <ul id="restaurants-list">
@@ -39,7 +41,7 @@
     <img src="{{ restaurant.thumb_image.url }}" alt="">
     {% endif %}
     <article>
-      <h2>{{ restaurant.name }}</h2>
+      <h2>{{ restaurant.name | truncatechars:24 }}</h2>
       <p>
         <span class="material-symbols-rounded">restaurant</span>
         {{ restaurant.cuisine }}
@@ -62,7 +64,7 @@
         <p>{{ restaurant.author }}</p>
       </div>
        <div class="restaurant-actions">
-        <a href="{% url 'restaurant_detail' restaurant.id %}" class="btn btn-primary">추천글 자세히 보기</a>
+        <a href="{{ restaurant.get_absolute_url }}" class="btn btn-primary">추천글 자세히 보기</a>
       </div>
     </article>
   </li>
