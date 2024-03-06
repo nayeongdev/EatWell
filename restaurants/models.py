@@ -25,7 +25,7 @@ class Restaurant(models.Model):
         (OTHER, "기타"),
     ]
 
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=100, help_text="식당 이름을 입력하세요.")
     address = models.CharField(max_length=100, help_text="식당은 어디에 있나요?")
     cuisine = models.CharField(
