@@ -18,85 +18,8 @@
 </head>
 
 <body>
-  <!-- insert default navigation text for every page -->
-  <header id="main-header">
-    <div id="logo"><a href="{% url 'index' %}">Eatwell</a></div>
-    <nav>
-      <ul>
-        <li class="nav-item">
-          <a href="{% url 'restaurants' %}">맛집 찾아보기</a>
-        </li>
-        {% if request.user.is_authenticated %}
-        <li class="nav-item">
-          <a href="{% url 'recommend' %}">맛집 공유하기</a>
-        </li>
-        {% endif %}
-        <li class="nav-item">
-          <a href="{% url 'about' %}">Eatwell 소개</a>
-        </li>
-      </ul>
-    </nav>
-    <nav>
-      <ul class="center">
-        {% if request.user.is_authenticated %}
-        <li class="login-item">
-          <a href="{% url 'profile' %}"><strong>{{request.user | title}}</strong> 미식가님</a>
-        </li>
-        <li class="login-item">
-          <a href="{% url 'logout' %}" class="btn btn-outline">
-            <span class="material-symbols-rounded">logout</span> 로그아웃
-          </a>
-        </li>
-        {% else %}
-        <li class="login-item">
-          <a href="{% url 'login' %}" class="btn btn-primary">
-            <span class="material-symbols-rounded">login</span> 로그인
-          </a>
-        </li>
-        <li class="login-item">
-          <a href="{% url 'signup' %}" class="btn btn-outline">
-            <span class="material-symbols-rounded">account_circle</span> 회원가입
-          </a>
-        </li>
-        {% endif %}
-      </ul>
-    </nav>
-    <button id="drawer-btn">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </header>
-  <aside id="mobile-drawer">
-    <nav>
-      <ul>
-        {% if request.user.is_authenticated %}
-        <li class="nav-item"><a href="#">{{request.user | title}} 미식가님</a></li>
-        <li class="nav-item"><a href="{% url 'logout' %}">로그아웃</a></li>
-        {% else %}
-        <li class="nav-item">
-          <a href="{% url 'login' %}"><span class="material-symbols-rounded">login</span>로그인</a>
-        </li>
-        <li class="nav-item">
-          <a href="{% url 'signup' %}"><span class="material-symbols-rounded">account_circle</span>회원가입</a>
-        </li>
-        {% endif %}
-      </ul>
-      <ul>
-        <li class="nav-item">
-          <a href="{% url 'restaurants' %}">맛집 찾아보기</a>
-        </li>
-        {% if request.user.is_authenticated %}
-        <li class="nav-item">
-          <a href="{% url 'recommend' %}">맛집 공유하기</a>
-        </li>
-        {% endif %}
-        <li class="nav-item">
-          <a href="{% url 'about' %}">Eatwell 소개</a>
-        </li>
-      </ul>
-    </nav>
-  </aside>
+  {% include 'navbar.html' %}
+
   <main>
     <div>
       {% block content %}
