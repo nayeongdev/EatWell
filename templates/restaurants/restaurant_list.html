@@ -8,6 +8,9 @@
 {% endblock %}
 
 {% block content %}
+{% if tag %}
+<h1>{{ tag }}</h1>
+{% else %}
 <h1>맛집 추천 리스트</h1>
 <p>다른 사용자의 추천 리스트로 나의 맛집을 찾아보세요!</p>
 
@@ -30,12 +33,13 @@
   <input type="text" name="q" value="{{ request.GET.q }}" id="q">
   <button type="submit" class="btn btn-primary">검색</button>
 </form>
+{% endif %}
 
-{% if object_list.exists %}
-<p><span>{{ object_list|length }}</span>개의 맛집이 있어요</p>
+{% if restaurant_list.exists %}
+<p><span>{{ restaurant_list|length }}</span>개의 맛집이 있어요</p>
 
 <ul id="restaurants-list">
-  {% for restaurant in object_list %}
+  {% for restaurant in restaurant_list %}
   <li class="restaurant-item">
     {% if restaurant.thumb_image %}
     <img src="{{ restaurant.thumb_image.url }}" alt="">
@@ -52,7 +56,7 @@
       </p>
       <ul>
         {% for tag in restaurant.tags.all %}
-        <li><a href="#" class="btn btn-outline">{{ tag }}</a></li>
+        <li><a href="{{tag.get_absolute_url}}" class="btn btn-outline">{{ tag }}</a></li>
         {% endfor %}
       </ul>
       <div class="restaurant-meta">
@@ -72,6 +76,6 @@
 </ul>
 {% else %}
 <p>아직 추천된 맛집이 없어요. 혹시 추천을 해줄 수 있나요?</p>
-<a href="/recommend">네, 내 맛집을 알려줄게요</a>
+<a href="/restaurants/recommend/">네, 내 맛집을 알려줄게요</a>
 {% endif %}
 {% endblock %}

@@ -1,9 +1,10 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Restaurant, Tag, Comment
 from .forms import RestaurantForm, CommentForm
@@ -125,10 +126,22 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse_lazy("restaurant_detail", kwargs={"pk": self.kwargs['pk']})
 
+def tag_page(request, slug=None):
+    try:
+        if not slug:
+            tag = '해시태그가 달린 맛집'
+            restaurant_list = Restaurant.objects.exclude(tags=None)
+        else:
+            tag = Tag.objects.get(slug=slug)
+            restaurant_list = Restaurant.objects.filter(tags=tag)
+    except ObjectDoesNotExist:
+        return redirect("tags")
 
-restaurant_list = RestaurantList.as_view()
-restaurant_detail = RestaurantDetail.as_view()
-restaurant_create = RestaurantCreate.as_view()
-restaurant_update = RestaurantUpdate.as_view()
-restaurant_delete = RestaurantDelete.as_view()
-comment_new = CommentCreateView.as_view()
+    return render(
+        request,
+        "restaurants/restaurant_list.html",
+        {
+            "restaurant_list": restaurant_list,
+            "tag": tag,
+        },
+    )
